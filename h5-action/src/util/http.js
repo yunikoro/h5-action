@@ -10,7 +10,7 @@ const fetch = options => {
         headers,
         responseType,
         timeout,
-      })
+      });
     case 'POST':
       return instance.post(
         url,
@@ -20,12 +20,26 @@ const fetch = options => {
           responseType,
           timeout,
         },
-      )
+      );
+    default:
+      return instance(options);
   }
 }
 
-
-
 export const request = async({ ...config }) => {
-
+  try {
+    /* eslint-disable camelcase */
+    const { data: { error_code, err_msg, data } } = await fetch({ ...config })
+    if (error_code !== null && error_code !== 0) {
+      return Promise.reject({ message: err_msg, statusCode: error_code });
+    }
+    return Promise.resolve({
+      message: err_msg || '',
+      statusCode: error_code || 0,
+      result: data,
+    });
+  } catch (e) {
+    const { response: { status, data: { message } } } = e
+    return Promise.reject({ status, message });
+  }
 }
