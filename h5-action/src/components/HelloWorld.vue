@@ -8,17 +8,52 @@
         </div>
       </div>
     </template>
-    <template v-if="isSuccess">
+    <template v-if="isSuccess === 1">
       <div class="mask">
         <div class="input to-flex in-col set-center">
           <span class="msg">报名成功</span>
         </div>
       </div>
     </template>
-    <template v-if="isSuccess == false">
+    <template v-if="isSuccess === -14">
+      <div class="mask">
+        <div class="input to-flex in-col set-center">
+          <span class="msg">现在不在报名时间</span>
+        </div>
+      </div>
+    </template>
+    <template v-if="isSuccess == -17">
+      <div class="mask">
+        <div class="input to-flex in-col set-center">
+          <span class="msg">您还没有换新展陈</span>
+        </div>
+      </div>
+    </template>
+    <template v-if="isSuccess === -11">
+      <div class="mask">
+        <div class="input to-flex in-col set-center">
+          <span class="msg">您还不是司机</span>
+        </div>
+      </div>
+    </template>
+    <template v-if="isSuccess === -13">
+      <div class="mask">
+        <div class="input to-flex in-col set-center">
+          <span class="msg">活动不存在</span>
+        </div>
+      </div>
+    </template>
+    <template v-if="isSuccess === -1">
       <div class="mask">
         <div class="input to-flex in-col set-center">
           <span class="msg">报名失败</span>
+        </div>
+      </div>
+    </template>
+    <template v-if="isSuccess === -18">
+      <div class="mask">
+        <div class="input to-flex in-col set-center">
+          <span class="msg">已经报过名了</span>
         </div>
       </div>
     </template>
@@ -42,7 +77,7 @@
           <div class="dash-footer">
              派发时间：
             <span class="high-color">
-              {{taskInfo.signUpStartTime | pureDate}}至{{taskInfo.signUpEndTime | pureDate}}
+              2018-04-23至2018-04-30
             </span>
           </div>
         </div>
@@ -176,15 +211,12 @@
           </ul>
         </div>
       </div>
-      <template v-if="signBtnFlag == 1">
-        <div @click="sign" class="bottom-btn">报名</div>
-      </template>
-      <template v-if="signBtnFlag == 2">
+      <template v-if="canSign">
         <div @click="sign" class="bottom-btn">报名</div>
       </template>
       <div class="foot-box">
         <div class="foot-item">
-          客服电话：<a>400-0027-527</a>
+          客服电话：<a href="tel:4000027527">400-0027-527</a>
         </div>
         <div>
           本次活动所有解释权归魔集便所有
@@ -211,6 +243,7 @@ export default {
       promParams: {},
       signResult: null,
       isSuccess: null,
+      canSign: false,
     };
   },
   methods: {
@@ -224,20 +257,32 @@ export default {
       queryParams = queryParams.concat('driverTel=', tel, '&promotion_name=', promotionName, '&city_name=', cityName);
       /* eslint-disable camelcase */
       try {
-        const { result: { biz_msg } } = await request({
+        const { result: { biz_code } } = await request({
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           url: getSignUrl,
           data: queryParams,
         });
-        if (biz_msg === 'suc') {
-          this.isSuccess = true;
-        } else if (biz_msg === '已经报过名了') {
-          this.isSuccess = true;
-        } else {
-          this.isSuccess = false;
-        }
         this.isSign = false;
+        if (biz_code === -14 || biz_code === -15 || biz_code === -16) {
+          // TODO : 不在报名时间
+          this.isSuccess = -14;
+        } else if (biz_code === 2) {
+          // TODO: 已经报过名
+          this.isSuccess = -18;
+        } else if (biz_code === -17) {
+          // TODO：没有更换新展陈
+          this.isSuccess = -17;
+        } else if (biz_code === -11) {
+          // TODO：您还不是司机
+          this.isSuccess = -11;
+        } else if (biz_code === 1) {
+          this.isSuccess = 1;
+        } else if (biz_code === -13) {
+          this.isSuccess = -13;
+        } else {
+          this.isSuccess = -1;
+        }
         setTimeout(() => {
           this.isSuccess = null;
         }, 1200);
@@ -247,6 +292,16 @@ export default {
         setTimeout(() => {
           this.isSuccess = null;
         }, 1200);
+      }
+    },
+    isExpired() {
+      const { signUpEndTime } = this.taskInfo;
+      const endTime = new Date(signUpEndTime);
+      const nowTime = new Date();
+      if (endTime - nowTime >= 0) {
+        this.canSign = true;
+      } else {
+        this.canSign = false;
       }
     },
   },
@@ -269,6 +324,7 @@ export default {
       signUpEndTime,
     }
     this.signBtnFlag = promotionStatus;
+    this.isExpired();
   },
   filters: {
     pureDate(value) {
@@ -281,7 +337,13 @@ export default {
     dayLeast(value) {
       if (value) {
         const time = new Date(value);
-        return Math.abs(moment().diff(time, 'days'));
+        const now = new Date();
+        const diffDays = Math.abs(moment().diff(time, 'days'));
+        console.log('diffDays', now - time);
+        if (time - now >= 0) {
+          return diffDays;
+        }
+        return 0;
       }
       return '';
     },
