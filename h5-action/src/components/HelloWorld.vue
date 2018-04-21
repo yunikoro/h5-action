@@ -1,9 +1,15 @@
+<script src="../../../../mart-admin/config/index.js"></script>
 <template>
   <div>
     <template v-if="isSign">
-      <div class="mask">
-        <div class="input to-flex in-col set-bet">
+      <div @click="hideSign" class="mask">
+        <div @click="prevent" class="input to-flex in-col set-bet">
           <input v-model="tel" class="number-input" placeholder="请输入手机号" />
+          <input disabled class="number-input" value="女" />
+          <select class="select">
+            <option selected>西斗门站点</option>
+            <option>滴滴驿站</option>
+          </select>
           <div @click="getSign" class="toast-btn">报名</div>
         </div>
       </div>
@@ -70,7 +76,7 @@
             </div>
             <div class="to-flex in-col">
               <div class="bg-base dash-item tutu-avatar"></div>
-              <div class="count">{{taskInfo.signUpCount}}/{{taskInfo.maxEngagedMember}}</div>
+              <div class="count">{{taskInfo.signUpCount | beautifyCount}}/150</div>
               <div>当前报名人数</div>
             </div>
           </div>
@@ -80,64 +86,6 @@
               2018-04-23至2018-04-30
             </span>
           </div>
-        </div>
-      </div>
-      <div class="detail-board">
-        <div class="bg-base board-header tutu-flow"></div>
-        <div class="item-box">
-          <ul>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">1</div>
-                <div class="to-flex set-center">
-                  <div class="line"></div>
-                </div>
-              </div>
-              <div class="content">满足活动要求的司机点击下方报名按钮</div>
-            </li>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">2</div>
-                <div class="to-flex set-center">
-                  <div class="line"></div>
-                </div>
-              </div>
-              <div class="content">填写个人信息</div>
-            </li>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">3</div>
-                <div class="to-flex set-center">
-                  <div class="line"></div>
-                </div>
-              </div>
-              <div class="content">系统审核</div>
-            </li>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">4</div>
-                <div class="to-flex set-center">
-                  <div class="line"></div>
-                </div>
-              </div>
-              <div class="content">审核通过后于23号前往指定站点领取排样商品</div>
-            </li>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">5</div>
-                <div class="to-flex set-center">
-                  <div class="line"></div>
-                </div>
-              </div>
-              <div class="content">派发给乘客，乘客需要0.01元购买该商品</div>
-            </li>
-            <li class="item">
-              <div class="line-box">
-                <div class="index">6</div>
-              </div>
-              <div class="content">司机完成有效派发</div>
-            </li>
-          </ul>
         </div>
       </div>
       <div class="detail-board">
@@ -183,7 +131,7 @@
               <div>
                 <div class="index">2</div>
               </div>
-              <div class="content">成功报名的司机合伙人，活动期间每天仅能领取10份派发物品</div>
+              <div class="content">成功报名的司机合伙人，活动期间每天仅能领取20份派发物品</div>
             </li>
             <li class="item">
               <div>
@@ -211,6 +159,64 @@
           </ul>
         </div>
       </div>
+      <div class="detail-board">
+        <div class="bg-base board-header tutu-flow"></div>
+        <div class="item-box">
+          <ul>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">1</div>
+                <div class="to-flex set-center">
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="content">满足活动要求的司机点击下方报名按钮</div>
+            </li>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">2</div>
+                <div class="to-flex set-center">
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="content">填写个人信息</div>
+            </li>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">3</div>
+                <div class="to-flex set-center">
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="content">系统审核</div>
+            </li>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">4</div>
+                <div class="to-flex set-center">
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="content">审核通过后于23号去往指定站点领取排样商品</div>
+            </li>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">5</div>
+                <div class="to-flex set-center">
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="content">派发给乘客，乘客需要0.01元购买该商品</div>
+            </li>
+            <li class="item">
+              <div class="line-box">
+                <div class="index">6</div>
+              </div>
+              <div class="content">司机完成有效派发</div>
+            </li>
+          </ul>
+        </div>
+      </div>
       <template v-if="canSign">
         <div @click="sign" class="bottom-btn">报名</div>
       </template>
@@ -219,7 +225,7 @@
           客服电话：<a href="tel:4000027527">400-0027-527</a>
         </div>
         <div>
-          本次活动所有解释权归魔集便所有
+          本次活动所有解释权归魔急便所有
         </div>
       </div>
     </div>
@@ -249,6 +255,12 @@ export default {
   methods: {
     async sign() {
       this.isSign = true;
+    },
+    async hideSign() {
+      this.isSign = false;
+    },
+    prevent(e) {
+      e.stopPropagation();
     },
     async getSign() {
       const { promotionName, cityName } = this.promParams;
@@ -346,6 +358,12 @@ export default {
         return 0;
       }
       return '';
+    },
+    beautifyCount(value) {
+      if (value <= 78) {
+        return 78;
+      }
+      return value;
     },
   },
 };
@@ -487,7 +505,7 @@ export default {
       margin: 311px auto;
       padding: 120px 57px 80px 57px;
       width: 500px;
-      height: 340px;
+      height: 440px;
       border-radius: 60px;
       background-color: #FFFFFF;
       .number-input {
@@ -510,6 +528,13 @@ export default {
         font-size: 36px;
       }
     }
+  }
+
+  .select {
+    padding: 26px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #FFF;
   }
 
   .tutu-avatar {
