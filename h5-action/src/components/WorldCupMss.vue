@@ -153,7 +153,7 @@ export default {
       display: flex;
       flex-direction: column;
       border: solid 2px #e45101; /* no */
-      padding: 25px;
+      padding: 20px;
       font-size: 29px;
       text-align: center;
       .sub-solg {
