@@ -13,6 +13,22 @@
     <script src="//static.mobilemart.cn/lib/flexible.min.js"></script>
     <!-- 二维码 -->
     <script src="//static.mobilemart.cn/lib/qrcode.min.js"></script>
+
     <!-- built files will be auto injected -->
+    <script>
+      if(location.search == '') {
+        var location = location.href;
+        var locationNoCache = location + '?v=' + new Date().getTime();
+        location.replace(locationNoCache);
+      }
+    </script>
+    <script>var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?706525a2a3b75ff08c0120a12e94b4ca";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
   </body>
 </html>

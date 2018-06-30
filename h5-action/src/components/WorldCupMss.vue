@@ -1,52 +1,68 @@
 <template>
   <div class="base-board">
     <div class="slogan-box"></div>
-    <div class="stock-list">
-      <div class="title">
-        <div>猜球大奖</div>
-      </div>
-      <div class="item">
-        <img src="../assets/erji.png" />
-        <div class="tips">
-          <div>可口可乐限量版耳机</div>
+    <div class="info-line">
+      <div class="stock-list">
+        <div class="title">
+          <div>猜球大奖</div>
+        </div>
+        <div class="item">
+          <img src="../assets/erji.png" />
+          <div class="tips">
+            <div>可口可乐限量版耳机</div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../assets/zuqiu.png" />
+          <div class="tips">
+            <div>可口可乐限量版足球</div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../assets/maoizi.png" />
+          <div class="tips">
+            <div>可口可乐限量版帽子</div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../assets/coffee.png" />
+          <div class="tips">
+            <div>畅爽提神麦隆咖啡<span class="tiny-text">(6罐)</span></div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../assets/skii.png" />
+          <div class="tips dajiang">
+            <div>神仙水清莹乳液套装</div>
+          </div>
+        </div>
+        <div class="item">
+          <img src="../assets/xbox.png" />
+          <div class="tips dajiang">
+            <div>Xbox One S 1TB</div>
+          </div>
         </div>
       </div>
-      <div class="item">
-        <img src="../assets/zuqiu.png" />
-        <div class="tips">
-          <div>可口可乐限量版足球</div>
+      <div class="stock-list top-space">
+        <div class="go-tips">
+          <div class="content">
+            <div class="sub-solg">每场比赛，竞猜成功可参与限量版奖品抽奖</div>
+            <div>连续竞猜，更有机会获得神秘大礼</div>
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <img src="../assets/maoizi.png" />
-        <div class="tips">
-          <div>可口可乐限量版帽子</div>
+        <div class="qr-box">
+          <div class="qr-code">
+            <img src="../assets/world-cup-qr.png" />
+          </div>
         </div>
-      </div>
-      <div class="item">
-        <img src="../assets/coffee.png" />
-        <div class="tips dajiang">
-          <div>畅爽提神麦隆咖啡<span class="tiny-text">(6罐)</span></div>
+        <div class="foot-tips">
+          <div>
+            保存或截图用微信扫码
+          </div>
+          <div>
+            开始属于你的征程
+          </div>
         </div>
-      </div>
-      <!--<div class="go-tips">-->
-        <!--&lt;!&ndash;<div class="content">&ndash;&gt;-->
-          <!--&lt;!&ndash;<div class="sub-solg"></div>&ndash;&gt;-->
-          <!--&lt;!&ndash;<div>每场比赛，竞猜成功即可参与每日限量版奖品抽奖</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
-      <!--</div>-->
-    </div>
-    <div class="qr-box">
-      <div class="qr-code">
-        <img src="../assets/world-cup-qr.png" />
-      </div>
-    </div>
-    <div class="foot-tips">
-      <div>
-        保存或截图用微信扫码
-      </div>
-      <div>
-        开始属于你的征程
       </div>
     </div>
   </div>
@@ -62,15 +78,17 @@ export default {
 
 <style lang="less" scoped>
   .base-board {
-    padding: 20px 18px 40px 18px;
     min-height: 100vh;
-    background-color: #000;
+    background-color: #0e3ca4;
     background-repeat: no-repeat;
+  }
+  .info-line {
+    padding: 20px 18px 40px 18px;
   }
   .slogan-box {
     box-sizing: border-box;
     width: 100vw;
-    height: calc(100vw/750*321);
+    height: calc(100vw/750*523);
     background-image: url("../assets/zhuti.png"), url("../assets/msg_channel.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -122,32 +140,28 @@ export default {
     }
   }
   .go-tips {
-    background-image: url("../assets/secret-banner.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    box-sizing: border-box;
+    /*background-image: url("../assets/secret-banner.png");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: contain;*/
+    /*box-sizing: border-box;*/
     width: 100%;
-    height: calc((100vw - 36px)/636*200);
+    /*height: calc((100vw - 36px)/636*200);*/
     /*height: calc;*/
-    padding: 13px;
-    /*.content {*/
-      /*display: flex;*/
-      /*flex-direction: column;*/
-      /*border: solid 1px #ffcfd7; !* no *!*/
-      /*padding: 23px;*/
-      /*.sub-solg {*/
-        /*margin-bottom: 20px;*/
-        /*background-image: url("../assets/lianxvcai.png");*/
-        /*background-repeat: no-repeat;*/
-        /*background-size: contain;*/
-        /*background-position: center;*/
-        /*height: 29px;*/
-      /*}*/
-      /*div {*/
-        /*text-align: center;*/
-        /*color: #fedba5;*/
-      /*}*/
-    /*}*/
+    background-color: #FFFFFF;
+    padding: 10px;
+    .content {
+      display: flex;
+      flex-direction: column;
+      border: solid 2px #e45101; /* no */
+      padding: 25px;
+      font-size: 29px;
+      text-align: center;
+      .sub-solg {
+        margin-bottom: 20px;
+        color: #000000;
+        height: 29px;
+      }
+    }
   }
   .qr-box {
     margin-top: 48px;
@@ -157,7 +171,7 @@ export default {
     .qr-code {
       width: 194px;
       height: 194px;
-      border: 14px solid #272728;
+      border: 14px solid #FFFFFF;
       box-shadow: 0px 13px 24px 0px
       rgba(39, 39, 40, 0.67);
       img {
@@ -170,6 +184,7 @@ export default {
     margin-top: 47px;
     width: 100%;
     div {
+      color: #FFFFFF;
       width: 100%;
       text-align: center;
       font-size: 30px;
@@ -178,11 +193,8 @@ export default {
 
   .dajiang {
     background-image: linear-gradient(-90deg,
-    #a6643d 0%,
-    #be8c60 100%),
-    linear-gradient(
-      #388e19,
-      #388e19) !important;
+    #caa576 0%,
+    #e9cba9 100%) !important;
   }
   .tiny-text {
     font-size: 22px;
@@ -201,5 +213,8 @@ export default {
       border-radius: 50px;
       color: #a4470e;
     }
+  }
+  .top-space {
+    margin-top: 38px;
   }
 </style>
