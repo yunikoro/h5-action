@@ -50,7 +50,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/didi-channel-coupon/',
+    assetsPublicPath: '/world-cup-sms/',
 
     /**
      * Source Maps
