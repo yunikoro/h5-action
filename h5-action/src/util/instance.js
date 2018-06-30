@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 import { baseURL } from '@/config';
-import { catchError } from './methods';
+import catchError from './methods';
 
 const instance = axios.create({
   baseURL,

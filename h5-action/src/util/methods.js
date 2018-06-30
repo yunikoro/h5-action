@@ -1,6 +1,4 @@
-const catchError = (error) => {
-  // if (error.response) {}
-  return Promise.reject(error);
-};
+const catchError = error => Promise.reject(error);
 
 export default catchError;
+

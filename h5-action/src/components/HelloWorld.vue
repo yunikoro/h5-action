@@ -1,4 +1,3 @@
-<script src="../../../../mart-admin/config/index.js"></script>
 <template>
   <div>
     <template v-if="isSign">
@@ -233,7 +232,7 @@
 </template>
 <script>
 import moment from 'moment';
-import { request } from '../util/http';
+import request from '../util/http';
 import { getActionInfo, getSignUrl } from '../api/api';
 
 
@@ -266,7 +265,7 @@ export default {
       const { promotionName, cityName } = this.promParams;
       const tel = this.tel;
       let queryParams = '';
-      queryParams = queryParams.concat('driverTel=', tel, '&promotion_name=', promotionName, '&city_name=', cityName);
+      queryParams = `driverTel=${tel}&promotion_name=${promotionName}&city_name=${cityName}`;
       /* eslint-disable camelcase */
       try {
         const { result: { biz_code } } = await request({
@@ -322,7 +321,7 @@ export default {
     this.promParams = {
       promotionName,
       cityName,
-    }
+    };
     const queryActionInfo = getActionInfo.concat('?promotion_name=', '凸凸棉', '&city_name=', '杭州市');
     const { result: { data } } = await request({
       url: queryActionInfo,
@@ -334,7 +333,7 @@ export default {
       signUpCount,
       signUpStartTime,
       signUpEndTime,
-    }
+    };
     this.signBtnFlag = promotionStatus;
     this.isExpired();
   },
@@ -351,7 +350,6 @@ export default {
         const time = new Date(value);
         const now = new Date();
         const diffDays = Math.abs(moment().diff(time, 'days'));
-        console.log('diffDays', now - time);
         if (time - now >= 0) {
           return diffDays;
         }
