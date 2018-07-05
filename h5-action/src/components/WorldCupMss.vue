@@ -52,7 +52,7 @@
         </div>
         <div class="qr-box">
           <div class="qr-code">
-            <img src="../assets/world-cup-qr.png" />
+            <img src="../assets/sms-push-qrcode.jpg" />
           </div>
         </div>
         <div class="foot-tips">
